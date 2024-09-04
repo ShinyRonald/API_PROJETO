@@ -1,7 +1,8 @@
 package br.com.projeto.API_PROJETO.controller;
 
 import br.com.projeto.API_PROJETO.entidade.Question;
-import br.com.projeto.API_PROJETO.service.QuestionService;
+import br.com.projeto.API_PROJETO.entidade.User;
+import br.com.projeto.API_PROJETO.service.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,23 +12,23 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/questions")
-public class QuestionController {
+@RequestMapping("/api/user")
+public class UserController {
 
     @Autowired
-    private QuestionService questionService;
+    private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<Question>> listar() {
-        List<Question> question = questionService.listAll();
-        return ResponseEntity.ok(question);
+    public ResponseEntity<List<User>> listar() {
+        List<User> user = userService.listAll();
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping
-    public ResponseEntity<Question> inserir(@RequestBody Question question ) {
-        questionService.inserir(question);
+    public ResponseEntity<User> inserir(@RequestBody User user) {
+        userService.inserir(user);
 
-        return ResponseEntity.created(null).body(question);
+        return ResponseEntity.created(null).body(user);
     }
 
     @PutMapping("/{id}")
@@ -43,7 +44,7 @@ public class QuestionController {
                 return ResponseEntity.badRequest().body("Missing required fields: 'chave' or 'valor'");
             }
 
-            boolean success = questionService.updateField(objectId.toString(), chave, valor);
+            boolean success = userService.updateField(objectId.toString(), chave, valor);
             if (success) {
                 return ResponseEntity.ok("Updated successfully");
             } else {
@@ -58,11 +59,11 @@ public class QuestionController {
     public ResponseEntity<String> deleteQuestion(@PathVariable String id) {
         try {
             ObjectId objectId = new ObjectId(id);
-            boolean success = questionService.deleteQuestion(objectId.toString());
+            boolean success = userService.deleteUser(objectId.toString());
             if (success) {
-                return ResponseEntity.ok("Question deleted successfully");
+                return ResponseEntity.ok("User deleted successfully");
             } else {
-                return ResponseEntity.badRequest().body("Failed to delete question");
+                return ResponseEntity.badRequest().body("Failed to delete User");
             }
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("Invalid ObjectId format");
