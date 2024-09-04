@@ -24,7 +24,7 @@ public class Question {
     private String enunciadoSete;
     private String enunciadoOito;
     private String enunciadoNove;
-    private List<Integer> alternativas;
+    private List<String> alternativas;
     private String resposta;
 
 }
