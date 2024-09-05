@@ -1,7 +1,6 @@
 package br.com.projeto.API_PROJETO.service;
 
 import br.com.projeto.API_PROJETO.entidade.Question;
-import br.com.projeto.API_PROJETO.entidade.User;
 import br.com.projeto.API_PROJETO.repositorio.QuestionRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
