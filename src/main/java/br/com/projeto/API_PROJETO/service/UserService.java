@@ -51,6 +51,37 @@ public class UserService {
                 case "curso":
                     user.setCurso(newValue);
                     break;
+                case "simuladosUmRealizado":
+                    user.setCurso(newValue);
+                    break;
+                case "respostasSimuladoUmCorretas":
+                    user.setCurso(newValue);
+                    break;
+                case "respostasSimuladoUmIncorretas":
+                    user.setCurso(newValue);
+                    break;
+                case "flashcardsRealizados":
+                    user.setCurso(newValue);
+                    break;
+                case "flashcardLembrei":
+                    user.setCurso(newValue);
+                    break;
+                case "flashcardQuaseNaoLembrei":
+                    user.setCurso(newValue);
+                    break;
+                case "flashcardNaoLembrei":
+                    user.setCurso(newValue);
+                    break;
+                case "simuladosDoisRealizado":
+                    user.setCurso(newValue);
+                    break;
+                case "respostasSimuladoDoisCorretas":
+                    user.setCurso(newValue);
+                    break;
+                case "respostasSimuladoDoisIncorretas":
+                    user.setCurso(newValue);
+                    break;
+
                 default:
                     return false; // Campo não encontrado
             }
