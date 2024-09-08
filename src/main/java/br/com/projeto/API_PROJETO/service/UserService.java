@@ -31,7 +31,7 @@ public class UserService {
         return user;
     }
 
-    public boolean updateField(String userId, String fieldName, String newValue) {
+    public boolean updateField(String userId, String fieldName, String newValue, int ValueNew) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -52,34 +52,34 @@ public class UserService {
                     user.setCurso(newValue);
                     break;
                 case "simuladosUmRealizado":
-                    user.setCurso(newValue);
+                    user.setSimuladosUmRealizado(ValueNew);
                     break;
                 case "respostasSimuladoUmCorretas":
-                    user.setCurso(newValue);
+                    user.setRespostasSimuladoUmCorretas(ValueNew);
                     break;
                 case "respostasSimuladoUmIncorretas":
-                    user.setCurso(newValue);
+                    user.setRespostasSimuladoUmIncorretas(ValueNew);
                     break;
                 case "flashcardsRealizados":
-                    user.setCurso(newValue);
+                    user.setFlashcardsRealizados(ValueNew);
                     break;
                 case "flashcardLembrei":
-                    user.setCurso(newValue);
+                    user.setFlashcardLembrei(ValueNew);
                     break;
                 case "flashcardQuaseNaoLembrei":
-                    user.setCurso(newValue);
+                    user.setFlashcardQuaseNaoLembrei(ValueNew);
                     break;
                 case "flashcardNaoLembrei":
-                    user.setCurso(newValue);
+                    user.setFlashcardNaoLembrei(ValueNew);
                     break;
                 case "simuladosDoisRealizado":
-                    user.setCurso(newValue);
+                    user.setSimuladosDoisRealizado(ValueNew);
                     break;
                 case "respostasSimuladoDoisCorretas":
-                    user.setCurso(newValue);
+                    user.setSimuladosDoisRealizado(ValueNew);
                     break;
                 case "respostasSimuladoDoisIncorretas":
-                    user.setCurso(newValue);
+                    user.setRespostasSimuladoDoisIncorretas(ValueNew);
                     break;
 
                 default:
