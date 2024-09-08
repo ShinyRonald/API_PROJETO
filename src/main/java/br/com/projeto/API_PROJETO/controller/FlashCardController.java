@@ -2,7 +2,6 @@ package br.com.projeto.API_PROJETO.controller;
 
 import br.com.projeto.API_PROJETO.entidade.FlashCard;
 import br.com.projeto.API_PROJETO.service.FlashCardService;
-import br.com.projeto.API_PROJETO.service.FlashCardService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
