@@ -1,6 +1,5 @@
 package br.com.projeto.API_PROJETO.service;
 
-import br.com.projeto.API_PROJETO.entidade.Question;
 import br.com.projeto.API_PROJETO.entidade.User;
 import br.com.projeto.API_PROJETO.repositorio.UserRepository;
 import org.bson.types.ObjectId;
@@ -21,6 +20,10 @@ public class UserService {
 
     public List<User> listAll() {
         return userRepository.findAll();
+    }
+
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public User inserir(User user) {
