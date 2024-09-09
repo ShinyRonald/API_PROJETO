@@ -83,56 +83,39 @@ public class UserController {
         }
     }
 
-    @PutMapping("/updateByEmail")
-    public ResponseEntity<String> updateFieldByEmail(
+    @PutMapping("/updateField")
+    public ResponseEntity<String> updateFields(
             @RequestParam String email,
-            @RequestBody Map<String, Object> updateFields) {
+            @RequestBody Map<String, Object> requestBody) {
         try {
-            // Verifica se o e-mail é válido
             if (email == null || email.isEmpty()) {
                 return ResponseEntity.badRequest().body("Email must not be null or empty");
             }
 
-            // Verifica se o corpo da requisição contém os campos necessários
-            if (updateFields == null || updateFields.isEmpty()) {
-                return ResponseEntity.badRequest().body("Update fields must not be null or empty");
+            if (requestBody == null || requestBody.isEmpty()) {
+                return ResponseEntity.badRequest().body("Request body must not be null or empty");
             }
 
-            // Extrai os campos do Map
-            String chave = (String) updateFields.get("chave");
-            Object valor = updateFields.get("valor");
+            String field = (String) requestBody.get("chave");
+            String value = (String) requestBody.get("valor");
 
-            // Verifica se os campos obrigatórios estão presentes
-            if (chave == null || chave.isEmpty()) {
-                return ResponseEntity.badRequest().body("Field 'chave' must not be null or empty");
+            if (field == null || field.isEmpty() || value == null) {
+                return ResponseEntity.badRequest().body("Field and value must not be null or empty");
             }
 
-            if (valor == null) {
-                return ResponseEntity.badRequest().body("Field 'valor' must not be null");
-            }
+            boolean success = userService.updateFieldByEmail(email, field, value);
 
-            // Realiza a atualização do campo com base no e-mail
-            boolean success;
-            if (valor instanceof String) {
-                success = userService.updateFieldByEmail(email, chave, (String) valor, null);
-            } else if (valor instanceof Integer) {
-                success = userService.updateFieldByEmail(email, chave, null, (Integer) valor);
-            } else {
-                return ResponseEntity.badRequest().body("Invalid value type. Must be String or Integer.");
-            }
-
-            // Verifica se a atualização foi bem-sucedida
             if (success) {
                 return ResponseEntity.ok("Updated successfully");
             } else {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update field");
             }
         } catch (Exception e) {
-            // Log do erro para análise posterior
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
         }
     }
+
 
 
 
