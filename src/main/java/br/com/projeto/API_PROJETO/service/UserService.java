@@ -31,10 +31,11 @@ public class UserService {
         return user;
     }
 
-    public boolean updateField(String userId, String fieldName, String newValue, int ValueNew) {
+    public boolean updateField(String userId, String fieldName, String newValue, Integer valueNew) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
+
             switch (fieldName) {
                 case "nome":
                     user.setNome(newValue);
@@ -52,36 +53,135 @@ public class UserService {
                     user.setCurso(newValue);
                     break;
                 case "simuladosUmRealizado":
-                    user.setSimuladosUmRealizado(ValueNew);
+                    if (valueNew != null) {
+                        user.setSimuladosUmRealizado(valueNew);
+                    }
                     break;
                 case "respostasSimuladoUmCorretas":
-                    user.setRespostasSimuladoUmCorretas(ValueNew);
+                    if (valueNew != null) {
+                        user.setRespostasSimuladoUmCorretas(valueNew);
+                    }
                     break;
                 case "respostasSimuladoUmIncorretas":
-                    user.setRespostasSimuladoUmIncorretas(ValueNew);
+                    if (valueNew != null) {
+                        user.setRespostasSimuladoUmIncorretas(valueNew);
+                    }
                     break;
                 case "flashcardsRealizados":
-                    user.setFlashcardsRealizados(ValueNew);
+                    if (valueNew != null) {
+                        user.setFlashcardsRealizados(valueNew);
+                    }
                     break;
                 case "flashcardLembrei":
-                    user.setFlashcardLembrei(ValueNew);
+                    if (valueNew != null) {
+                        user.setFlashcardLembrei(valueNew);
+                    }
                     break;
                 case "flashcardQuaseNaoLembrei":
-                    user.setFlashcardQuaseNaoLembrei(ValueNew);
+                    if (valueNew != null) {
+                        user.setFlashcardQuaseNaoLembrei(valueNew);
+                    }
                     break;
                 case "flashcardNaoLembrei":
-                    user.setFlashcardNaoLembrei(ValueNew);
+                    if (valueNew != null) {
+                        user.setFlashcardNaoLembrei(valueNew);
+                    }
                     break;
                 case "simuladosDoisRealizado":
-                    user.setSimuladosDoisRealizado(ValueNew);
+                    if (valueNew != null) {
+                        user.setSimuladosDoisRealizado(valueNew);
+                    }
                     break;
                 case "respostasSimuladoDoisCorretas":
-                    user.setSimuladosDoisRealizado(ValueNew);
+                    if (valueNew != null) {
+                        user.setRespostasSimuladoDoisCorretas(valueNew);
+                    }
                     break;
                 case "respostasSimuladoDoisIncorretas":
-                    user.setRespostasSimuladoDoisIncorretas(ValueNew);
+                    if (valueNew != null) {
+                        user.setRespostasSimuladoDoisIncorretas(valueNew);
+                    }
                     break;
+                default:
+                    return false; // Campo não encontrado
+            }
+            userRepository.save(user);
+            return true; // Atualização bem-sucedida
+        }
+        return false; // Usuário não encontrado
+    }
 
+    public boolean updateFieldByEmail(String email, String fieldName, String newValue, Integer valueNew) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+
+            switch (fieldName) {
+                case "nome":
+                    user.setNome(newValue);
+                    break;
+                case "senha":
+                    user.setSenha(newValue);
+                    break;
+                case "email":
+                    user.setEmail(newValue);
+                    break;
+                case "faculdade":
+                    user.setFaculdade(newValue);
+                    break;
+                case "curso":
+                    user.setCurso(newValue);
+                    break;
+                case "simuladosUmRealizado":
+                    if (valueNew != null) {
+                        user.setSimuladosUmRealizado(valueNew);
+                    }
+                    break;
+                case "respostasSimuladoUmCorretas":
+                    if (valueNew != null) {
+                        user.setRespostasSimuladoUmCorretas(valueNew);
+                    }
+                    break;
+                case "respostasSimuladoUmIncorretas":
+                    if (valueNew != null) {
+                        user.setRespostasSimuladoUmIncorretas(valueNew);
+                    }
+                    break;
+                case "flashcardsRealizados":
+                    if (valueNew != null) {
+                        user.setFlashcardsRealizados(valueNew);
+                    }
+                    break;
+                case "flashcardLembrei":
+                    if (valueNew != null) {
+                        user.setFlashcardLembrei(valueNew);
+                    }
+                    break;
+                case "flashcardQuaseNaoLembrei":
+                    if (valueNew != null) {
+                        user.setFlashcardQuaseNaoLembrei(valueNew);
+                    }
+                    break;
+                case "flashcardNaoLembrei":
+                    if (valueNew != null) {
+                        user.setFlashcardNaoLembrei(valueNew);
+                    }
+                    break;
+                case "simuladosDoisRealizado":
+                    if (valueNew != null) {
+                        user.setSimuladosDoisRealizado(valueNew);
+                    }
+                    break;
+                case "respostasSimuladoDoisCorretas":
+                    if (valueNew != null) {
+                        user.setRespostasSimuladoDoisCorretas(valueNew);
+                    }
+                    break;
+                case "respostasSimuladoDoisIncorretas":
+                    if (valueNew != null) {
+                        user.setRespostasSimuladoDoisIncorretas(valueNew);
+                    }
+                    break;
                 default:
                     return false; // Campo não encontrado
             }
