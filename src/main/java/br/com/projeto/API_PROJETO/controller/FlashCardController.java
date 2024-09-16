@@ -1,14 +1,17 @@
 package br.com.projeto.API_PROJETO.controller;
 
 import br.com.projeto.API_PROJETO.entidade.FlashCard;
+import br.com.projeto.API_PROJETO.entidade.User;
 import br.com.projeto.API_PROJETO.service.FlashCardService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/flashcards")
@@ -21,6 +24,16 @@ public class FlashCardController {
     public ResponseEntity<List<FlashCard>> listar() {
         List<FlashCard> flashCard = flashCardService.listAll();
         return ResponseEntity.ok(flashCard);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<FlashCard> getFlashCardById(@RequestParam String id) {
+        Optional<FlashCard> flashCardOptional = flashCardService.getFlashCardbyId(id);
+        if (flashCardOptional.isPresent()) {
+            return new ResponseEntity<>(flashCardOptional.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping

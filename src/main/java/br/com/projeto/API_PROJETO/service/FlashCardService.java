@@ -24,6 +24,10 @@ public class FlashCardService {
         return flashCardRepository.findAll();
     }
 
+    public Optional<FlashCard> getFlashCardbyId(String email) {
+        return flashCardRepository.findById(email);
+    }
+
     public FlashCard inserir(FlashCard flashCard) {
         flashCardRepository.insert(flashCard);
         return flashCard;
