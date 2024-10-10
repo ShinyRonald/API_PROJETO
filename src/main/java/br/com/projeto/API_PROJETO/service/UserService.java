@@ -219,13 +219,19 @@ public class UserService {
     }
 
     public boolean updateLastExit(String userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            user.setUltimaSaida(new Date()); // Atualiza a última saída
-            userRepository.save(user); // Salva as alterações
-            return true; // Atualização bem-sucedida
+        try {
+            Optional<User> optionalUser = userRepository.findById(userId);
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                user.setUltimaSaida(new Date()); // Atualiza a última saída
+                userRepository.save(user); // Salva as alterações
+                return true; // Atualização bem-sucedida
+            }
+        } catch (Exception e) {
+            // Log o erro para depuração
+            System.err.println("Erro ao atualizar a última saída: " + e.getMessage());
         }
-        return false; // Usuário não encontrado
+        return false; // Usuário não encontrado ou erro ocorreu
     }
+
 }

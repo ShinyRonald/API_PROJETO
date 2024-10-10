@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,6 +39,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> inserir(@RequestBody User user) {
+        user.setUltimaSaida(new Date());
         userService.inserir(user);
 
         return ResponseEntity.created(null).body(user);
@@ -119,17 +121,22 @@ public class UserController {
     @PutMapping("/update-last-exit/{id}")
     public ResponseEntity<String> updateLastExit(@PathVariable String id) {
         try {
+            // Chama o serviço para atualizar a última saída
             if (userService.updateLastExit(id)) {
                 return ResponseEntity.ok("Última saída atualizada com sucesso");
             } else {
+                // Se o usuário não for encontrado, retorna 404
                 return ResponseEntity.notFound().build();
             }
         } catch (IllegalArgumentException e) {
+            // Retorna 400 em caso de formato de ID inválido
             return ResponseEntity.badRequest().body("Invalid ObjectId format");
+        } catch (Exception e) {
+            // Captura qualquer outro erro e retorna 500
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao atualizar a última saída: " + e.getMessage());
         }
     }
-
-
 
 
 
