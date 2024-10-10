@@ -116,6 +116,20 @@ public class UserController {
         }
     }
 
+    @PutMapping("/update-last-exit/{id}")
+    public ResponseEntity<String> updateLastExit(@PathVariable String id) {
+        try {
+            if (userService.updateLastExit(id)) {
+                return ResponseEntity.ok("Última saída atualizada com sucesso");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid ObjectId format");
+        }
+    }
+
+
 
 
 

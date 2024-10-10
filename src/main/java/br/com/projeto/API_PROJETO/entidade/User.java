@@ -14,26 +14,28 @@ import java.util.Date;
 @Document(collection = "users")
 public class User {
 
-    private String id;
-    private String nome;
-    private String email;
-    private String curso;
-    private String faculdade;
-    private String senha;
+        private String id;
+        private String nome;
+        private String email;
+        private String curso;
+        private String faculdade;
+        private String senha;
 
-    //Isso aqui é pra manter a data no formato dd/MM/yyyy se não fica yyyy-MM-dd
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private Date data;
+        //Isso aqui é pra manter a data no formato dd/MM/yyyy se não fica yyyy-MM-dd
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+        private Date data;
 
-    private int simuladosUmRealizado;
-    private int respostasSimuladoUmCorretas;
-    private int respostasSimuladoUmIncorretas;
-    private int flashcardsRealizados;
-    private int flashcardLembrei;
-    private int flashcardQuaseNaoLembrei;
-    private int flashcardNaoLembrei;
-    private int simuladosDoisRealizado;
-    private int respostasSimuladoDoisCorretas;
-    private int respostasSimuladoDoisIncorretas;
+        private int simuladosUmRealizado;
+        private int respostasSimuladoUmCorretas;
+        private int respostasSimuladoUmIncorretas;
+        private int flashcardsRealizados;
+        private int flashcardLembrei;
+        private int flashcardNaoLembrei;
+        private int simuladosDoisRealizado;
+        private int respostasSimuladoDoisCorretas;
+        private int respostasSimuladoDoisIncorretas;
+
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+        private Date ultimaSaida;
 
 }

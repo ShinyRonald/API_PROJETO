@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -27,6 +24,10 @@ public class UserService {
 
     public Optional<User> getUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public User updateUser(User user) {
+        return userRepository.save(user);
     }
 
     public User inserir(User user) {
@@ -78,11 +79,6 @@ public class UserService {
                 case "flashcardLembrei":
                     if (valueNew != null) {
                         user.setFlashcardLembrei(valueNew);
-                    }
-                    break;
-                case "flashcardQuaseNaoLembrei":
-                    if (valueNew != null) {
-                        user.setFlashcardQuaseNaoLembrei(valueNew);
                     }
                     break;
                 case "flashcardNaoLembrei":
@@ -169,9 +165,6 @@ public class UserService {
                             case "flashcardsRealizados":
                                 user.setFlashcardsRealizados(intValue);
                                 break;
-                            case "flashcardQuaseNaoLembrei":
-                                user.setFlashcardQuaseNaoLembrei(intValue);
-                                break;
                             case "flashcardNaoLembrei":
                                 user.setFlashcardNaoLembrei(intValue);
                                 break;
@@ -223,5 +216,16 @@ public class UserService {
             e.printStackTrace();
             return false; // Falha ao deletar
         }
+    }
+
+    public boolean updateLastExit(String userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setUltimaSaida(new Date()); // Atualiza a última saída
+            userRepository.save(user); // Salva as alterações
+            return true; // Atualização bem-sucedida
+        }
+        return false; // Usuário não encontrado
     }
 }
