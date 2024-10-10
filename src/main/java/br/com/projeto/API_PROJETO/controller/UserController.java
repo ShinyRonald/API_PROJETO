@@ -118,25 +118,22 @@ public class UserController {
         }
     }
 
-    @PutMapping("/update-last-exit/{id}")
-    public ResponseEntity<String> updateLastExit(@PathVariable String id) {
+    @PutMapping("/update-last-exit")
+    public ResponseEntity<String> updateLastExit(@RequestParam String email) {
         try {
-            // Chama o serviço para atualizar a última saída
-            if (userService.updateLastExit(id)) {
+            if (userService.updateLastExitByEmail(email)) {
                 return ResponseEntity.ok("Última saída atualizada com sucesso");
             } else {
-                // Se o usuário não for encontrado, retorna 404
                 return ResponseEntity.notFound().build();
             }
         } catch (IllegalArgumentException e) {
-            // Retorna 400 em caso de formato de ID inválido
-            return ResponseEntity.badRequest().body("Invalid ObjectId format");
+            return ResponseEntity.badRequest().body("Formato de email inválido");
         } catch (Exception e) {
-            // Captura qualquer outro erro e retorna 500
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao atualizar a última saída: " + e.getMessage());
         }
     }
+
 
 
 

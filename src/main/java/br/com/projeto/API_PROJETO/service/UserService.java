@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.*;
 import java.util.*;
 
 @Service
@@ -218,20 +219,24 @@ public class UserService {
         }
     }
 
-    public boolean updateLastExit(String userId) {
-        try {
-            Optional<User> optionalUser = userRepository.findById(userId);
-            if (optionalUser.isPresent()) {
-                User user = optionalUser.get();
-                user.setUltimaSaida(new Date()); // Atualiza a última saída
-                userRepository.save(user); // Salva as alterações
-                return true; // Atualização bem-sucedida
-            }
-        } catch (Exception e) {
-            // Log o erro para depuração
-            System.err.println("Erro ao atualizar a última saída: " + e.getMessage());
+    public boolean updateLastExitByEmail(String email) {
+
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isEmpty()) {
+            return false; // Usuário não encontrado
         }
-        return false; // Usuário não encontrado ou erro ocorreu
+
+        User user = optionalUser.get();
+
+        // Usar OffsetDateTime com o deslocamento UTC-3
+        OffsetDateTime agora = OffsetDateTime.now(ZoneOffset.ofHours(-3)); // Ajuste o deslocamento conforme necessário
+        Date dataAtual = Date.from(agora.toInstant());
+
+        user.setUltimaSaida(dataAtual); // Usando Date
+        userRepository.save(user); // Salva as alterações
+
+        return true; // Atualização bem-sucedida
     }
 
 }
